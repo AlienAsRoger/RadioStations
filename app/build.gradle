@@ -61,6 +61,9 @@ dependencies {
     // EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
 
+    //Gson
+    compile 'com.google.code.gson:gson:2.8.0'
+
     // Retrofit 2
     compile "com.squareup.retrofit2:retrofit:$retrofit_version"
     compile "com.squareup.retrofit2:converter-gson:$retrofit_version"

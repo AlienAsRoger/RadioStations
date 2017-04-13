@@ -1,16 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context="com.developer4droid.radiostations.ui.activity.MainActivity"
 	>
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Hello World!"
-		/>
+	<data>
 
-</FrameLayout>
+		<import
+			type="android.view.View"
+			alias="v"
+			/>
+
+		<variable
+			name="home"
+			type="com.developer4droid.radiostations.viewmodel.HomeViewModel"
+			/>
+	</data>
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context="com.developer4droid.radiostations.ui.activity.MainActivity"
+		>
+
+
+		<!--RecyclerView-->
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/recycler_view"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			tools:listItem="@layout/main_image_row_view"
+			android:visibility="@{home.loading? v.GONE : v.VISIBLE}"
+			tools:visibility="gone"
+			/>
+
+		<!--Loading View-->
+		<ProgressBar
+			android:id="@+id/loading_view"
+			style="@style/Base.Widget.AppCompat.ProgressBar"
+			android:indeterminate="true"
+			android:layout_width="48dp"
+			android:layout_height="48dp"
+			android:visibility="@{home.loading? v.VISIBLE : v.GONE}"
+			tools:visibility="invisible"
+			android:layout_gravity="center"
+			/>
+
+	</FrameLayout>
+</layout>
