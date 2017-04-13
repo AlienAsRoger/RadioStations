@@ -11,11 +11,13 @@ import java.util.List;
  * Time: 11:54
  */
 
-public interface HomeContract {
+public interface CategoriesContract {
 
 	interface ViewFrame{
 
 		void updateAdapter(List<Category> itemList);
+
+		void openCategory(String name);
 	}
 
 	interface ActionListener {

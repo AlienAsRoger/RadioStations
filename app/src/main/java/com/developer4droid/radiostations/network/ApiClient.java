@@ -1,6 +1,7 @@
 package com.developer4droid.radiostations.network;
 
 import com.developer4droid.radiostations.model.Category;
+import com.developer4droid.radiostations.model.Transmission;
 import com.developer4droid.radiostations.model.base.BaseResponse;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -28,8 +29,8 @@ public interface ApiClient {
 	Call<BaseResponse<Category>> loadCategories();
 
 	@GET("Browse.ashx" + RENDER_JSON)
-	Call<BaseResponse> loadStation(@Query("c") String stationName);
+	Call<BaseResponse<Transmission>> loadTransmissions(@Query("c") String categoryName);
 
 	@GET("Tune.ashx" + RENDER_JSON)
-	Call<BaseResponse> loadPlaylist(@Query("id") String id);
+	Call<BaseResponse> loadStation(@Query("id") String id);
 }

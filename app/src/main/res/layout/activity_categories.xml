@@ -11,15 +11,15 @@
 			/>
 
 		<variable
-			name="home"
-			type="com.developer4droid.radiostations.viewmodel.HomeViewModel"
+			name="categories"
+			type="com.developer4droid.radiostations.viewmodel.CategoriesViewModel"
 			/>
 	</data>
 
 	<FrameLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		tools:context="com.developer4droid.radiostations.ui.activity.MainActivity"
+		tools:context="com.developer4droid.radiostations.ui.activity.CategoriesActivity"
 		>
 
 
@@ -29,7 +29,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			tools:listItem="@layout/main_image_row_view"
-			android:visibility="@{home.loading? v.GONE : v.VISIBLE}"
+			android:visibility="@{categories.loading? v.GONE : v.VISIBLE}"
 			tools:visibility="gone"
 			/>
 
@@ -40,7 +40,7 @@
 			android:indeterminate="true"
 			android:layout_width="48dp"
 			android:layout_height="48dp"
-			android:visibility="@{home.loading? v.VISIBLE : v.GONE}"
+			android:visibility="@{categories.loading? v.VISIBLE : v.GONE}"
 			tools:visibility="invisible"
 			android:layout_gravity="center"
 			/>

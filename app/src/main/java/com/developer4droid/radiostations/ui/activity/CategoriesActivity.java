@@ -3,32 +3,33 @@ package com.developer4droid.radiostations.ui.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.developer4droid.radiostations.R;
-import com.developer4droid.radiostations.databinding.ActivityMainBinding;
+import com.developer4droid.radiostations.databinding.ActivityCategoriesBinding;
 import com.developer4droid.radiostations.model.Category;
 import com.developer4droid.radiostations.ui.adapter.CategoriesAdapter;
-import com.developer4droid.radiostations.ui.interfaces.HomeContract;
-import com.developer4droid.radiostations.viewmodel.HomeViewModel;
+import com.developer4droid.radiostations.ui.interfaces.CategoriesContract;
+import com.developer4droid.radiostations.viewmodel.CategoriesViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements HomeContract.ViewFrame{
+public class CategoriesActivity extends AppCompatActivity implements CategoriesContract.ViewFrame{
 
 	@BindView(R.id.recycler_view)
 	RecyclerView recyclerView;
 
-	private ActivityMainBinding binding;
-	private HomeViewModel viewModel;
+	private ActivityCategoriesBinding binding;
+	private CategoriesViewModel viewModel;
 	private CategoriesAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+		binding = DataBindingUtil.setContentView(this, R.layout.activity_categories);
 
 		// Use butter knife for fast binding
 		ButterKnife.bind(this);
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements HomeContract.View
 	protected void onResume() {
 		super.onResume();
 
-		binding.setHome(viewModel);
+		binding.setCategories(viewModel);
 
 		viewModel.onResume(this);
 	}
@@ -55,14 +56,18 @@ public class MainActivity extends AppCompatActivity implements HomeContract.View
 	 */
 	private void init() {
 		adapter = new CategoriesAdapter(null);
-		viewModel = new HomeViewModel();
+		viewModel = new CategoriesViewModel();
 	}
 
 	/**
 	 * Initiate views after main objects
 	 */
 	private void initViews() {
-		recyclerView.setLayoutManager(new LinearLayoutManager(this));
+		LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+		recyclerView.setLayoutManager(layoutManager);
+		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+				layoutManager.getOrientation());
+		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(adapter);
 	}
 
@@ -75,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements HomeContract.View
 		adapter.updateItems(itemList);
 	}
 
-	// --------- //
-	// Event Bus //
-	// --------- //
-
+	@Override
+	public void openCategory(String name) {
+		startActivity(StationsActivity.createIntent(this, name));
+	}
 }

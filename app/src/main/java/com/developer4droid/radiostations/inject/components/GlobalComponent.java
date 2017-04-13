@@ -2,9 +2,7 @@ package com.developer4droid.radiostations.inject.components;
 
 import com.developer4droid.radiostations.inject.AppModule;
 import com.developer4droid.radiostations.inject.NetworkModule;
-import com.developer4droid.radiostations.viewmodel.BaseViewModel;
-import com.developer4droid.radiostations.viewmodel.CategoryViewModel;
-import com.developer4droid.radiostations.viewmodel.HomeViewModel;
+import com.developer4droid.radiostations.viewmodel.*;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -23,9 +21,13 @@ import javax.inject.Singleton;
 })
 public interface GlobalComponent {
 
-	void inject(HomeViewModel inject);
+	void inject(CategoriesViewModel model);
 
 	void inject(CategoryViewModel model);
+
+	void inject(StationsViewModel model);
+
+	void inject(StationViewModel model);
 
 	void inject(BaseViewModel model);
 }

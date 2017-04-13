@@ -11,7 +11,7 @@
 			/>
 
 		<variable
-			name="station"
+			name="category"
 			type="com.developer4droid.radiostations.viewmodel.CategoryViewModel"
 			/>
 	</data>
@@ -20,9 +20,9 @@
 	<TextView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		style="@style/CategoryName"
-		android:text="@{station.name}"
-		android:onClick="@{() -> station.openStation()}"
+		style="@style/Name.Category"
+		android:text="@{category.name}"
+		android:onClick="@{() -> category.openCategory()}"
 		tools:text="Local"
 		/>
 

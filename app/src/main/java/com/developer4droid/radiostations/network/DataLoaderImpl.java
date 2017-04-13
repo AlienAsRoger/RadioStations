@@ -2,6 +2,7 @@ package com.developer4droid.radiostations.network;
 
 import android.util.Log;
 import com.developer4droid.radiostations.model.Category;
+import com.developer4droid.radiostations.model.Transmission;
 import com.developer4droid.radiostations.model.base.BaseResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +37,27 @@ public class DataLoaderImpl implements DataLoader{
 
 			@Override
 			public void onFailure(Call<BaseResponse<Category>> call, Throwable t) {
+				Log.d("TEST", "onFailure: ");
+			}
+		});
+	}	
+	
+	@Override
+	public void loadTransmissions(String categoryName, final DataReceiver<List<Transmission>> dataReceiver) {
+		final Call<BaseResponse<Transmission>> call = apiClient.loadTransmissions(categoryName);
+		call.enqueue(new Callback<BaseResponse<Transmission>>() {
+			@Override
+			public void onResponse(Call<BaseResponse<Transmission>> call, Response<BaseResponse<Transmission>> response) {
+				if (response.isSuccessful()) {
+					List<Transmission> list = response.body().getBody();
+					dataReceiver.onDataReceived(list);
+				} else {
+					Log.d("TEST", "onResponse: Not Success");
+				}
+			}
+
+			@Override
+			public void onFailure(Call<BaseResponse<Transmission>> call, Throwable t) {
 				Log.d("TEST", "onFailure: ");
 			}
 		});

@@ -18,7 +18,7 @@ import java.util.List;
  * Time: 12:05
  */
 
-public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.StationViewHolder> {
+public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder> {
 
 	private List<Category> itemsList;
 
@@ -28,18 +28,18 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.St
 	}
 
 	@Override
-	public StationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 		View itemView = inflater.inflate(R.layout.category_row_view, parent, false);
 		CategoryViewModel viewModel = new CategoryViewModel();
 		CategoryRowViewBinding binding = CategoryRowViewBinding.bind(itemView);
-		binding.setStation(viewModel);
+		binding.setCategory(viewModel);
 
-		return new StationViewHolder(itemView, binding, viewModel);
+		return new CategoryViewHolder(itemView, binding, viewModel);
 	}
 
 	@Override
-	public void onBindViewHolder(StationViewHolder holder, int position) {
+	public void onBindViewHolder(CategoryViewHolder holder, int position) {
 		holder.setItem(itemsList.get(position));
 	}
 
@@ -53,12 +53,12 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.St
 		notifyDataSetChanged();
 	}
 
-	static class StationViewHolder extends RecyclerView.ViewHolder {
+	static class CategoryViewHolder extends RecyclerView.ViewHolder {
 
 		private CategoryRowViewBinding binding;
 		private CategoryViewModel viewModel;
 
-		public StationViewHolder(View itemView, CategoryRowViewBinding binding, CategoryViewModel viewModel) {
+		public CategoryViewHolder(View itemView, CategoryRowViewBinding binding, CategoryViewModel viewModel) {
 			super(itemView);
 			this.binding = binding;
 			this.viewModel = viewModel;
