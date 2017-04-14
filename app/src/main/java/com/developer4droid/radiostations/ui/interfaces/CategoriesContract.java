@@ -17,7 +17,7 @@ public interface CategoriesContract {
 
 		void updateAdapter(List<Category> itemList);
 
-		void openCategory(String name);
+		void openCategory(String name, String key);
 	}
 
 	interface ActionListener {

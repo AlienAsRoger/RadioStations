@@ -1,14 +1,9 @@
 package com.developer4droid.radiostations.viewmodel;
 
-import android.databinding.Bindable;
-import com.developer4droid.radiostations.BR;
 import com.developer4droid.radiostations.application.MyApplication;
 import com.developer4droid.radiostations.events.OpenStationEvent;
 import com.developer4droid.radiostations.model.Station;
 import com.developer4droid.radiostations.ui.interfaces.ImageLoader;
-import org.greenrobot.eventbus.EventBus;
-
-import javax.inject.Inject;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,12 +12,7 @@ import javax.inject.Inject;
  * Time: 16:38
  */
 
-public class StationViewModel  extends BaseViewModel {
-
-	@Inject
-	EventBus eventBus; // can be also interface
-
-	private String name;
+public class StationViewModel extends OutlineViewModel {
 
 	public StationViewModel() {
 		MyApplication.getInstance().getGlobalComponent().inject(this);
@@ -33,18 +23,8 @@ public class StationViewModel  extends BaseViewModel {
 		imageLoader.loadImage(model.getImage());
 	}
 
-	@Bindable
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-		notifyPropertyChanged(BR.name);
-	}
-
-	public void openStation() {
-		eventBus.post(new OpenStationEvent(name));
+	public void openItem() {
+		eventBus.post(new OpenStationEvent(name, guideId));
 	}
 
 }

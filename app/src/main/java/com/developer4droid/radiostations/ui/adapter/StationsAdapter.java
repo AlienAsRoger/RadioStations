@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.developer4droid.radiostations.R;
-import com.developer4droid.radiostations.databinding.StationRowViewBinding;
+import com.developer4droid.radiostations.databinding.OutlineRowViewBinding;
 import com.developer4droid.radiostations.model.Station;
 import com.developer4droid.radiostations.ui.interfaces.ImageLoader;
 import com.developer4droid.radiostations.viewmodel.StationViewModel;
@@ -32,10 +32,10 @@ public class StationsAdapter extends RecyclerView.Adapter<StationsAdapter.Statio
 	@Override
 	public StationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-		View itemView = inflater.inflate(R.layout.station_row_view, parent, false);
+		View itemView = inflater.inflate(R.layout.outline_row_view, parent, false);
 		StationViewModel viewModel = new StationViewModel();
-		StationRowViewBinding binding = StationRowViewBinding.bind(itemView);
-		binding.setStation(viewModel);
+		OutlineRowViewBinding binding = OutlineRowViewBinding.bind(itemView);
+		binding.setOutline(viewModel);
 
 		return new StationViewHolder(itemView, binding, viewModel);
 	}
@@ -55,19 +55,14 @@ public class StationsAdapter extends RecyclerView.Adapter<StationsAdapter.Statio
 		notifyDataSetChanged();
 	}
 
-	static class StationViewHolder extends RecyclerView.ViewHolder implements ImageLoader {
+	public static class StationViewHolder extends OutlineAdapter.OutlineViewHolder implements ImageLoader {
 
-		private StationRowViewBinding binding;
-		private StationViewModel viewModel;
-
-		public StationViewHolder(View itemView, StationRowViewBinding binding, StationViewModel viewModel) {
-			super(itemView);
-			this.binding = binding;
-			this.viewModel = viewModel;
+		public StationViewHolder(View itemView, OutlineRowViewBinding binding, StationViewModel viewModel) {
+			super(itemView, binding, viewModel);
 		}
 
-		public void setItem(Station Station) {
-			viewModel.setModel(Station, this);
+		public void setItem(Station station) {
+			((StationViewModel)viewModel).setModel(station, this);
 			binding.executePendingBindings();
 		}
 

@@ -22,13 +22,15 @@ public class CategoryViewModel extends BaseViewModel {
 	EventBus eventBus; // can be also interface
 
 	private String name;
+	private String key;
 
 	public CategoryViewModel() {
 		MyApplication.getInstance().getGlobalComponent().inject(this);
 	}
 
 	public void setModel(Category model) {
-		setName(model.getKey());
+		setName(model.getText());
+		setKey(model.getKey());
 	}
 
 	@Bindable
@@ -42,7 +44,16 @@ public class CategoryViewModel extends BaseViewModel {
 	}
 
 	public void openCategory() {
-		eventBus.post(new OpenCategoryEvent(name));
+		eventBus.post(new OpenCategoryEvent(getKey(), getName()));
 	}
 
+	@Bindable
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+		notifyPropertyChanged(BR.key);
+	}
 }

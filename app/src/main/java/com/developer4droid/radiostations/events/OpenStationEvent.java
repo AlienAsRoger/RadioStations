@@ -10,9 +10,15 @@ package com.developer4droid.radiostations.events;
 public class OpenStationEvent {
 	
 	private String name;
+	private String guideId;
 
-	public OpenStationEvent(String name) {
+	public OpenStationEvent(String name, String guideId) {
 		this.name = name;
+		this.guideId = guideId;
+	}
+
+	public String getGuideId() {
+		return guideId;
 	}
 
 	public String getName() {

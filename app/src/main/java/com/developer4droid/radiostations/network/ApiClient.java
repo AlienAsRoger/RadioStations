@@ -1,7 +1,7 @@
 package com.developer4droid.radiostations.network;
 
 import com.developer4droid.radiostations.model.Category;
-import com.developer4droid.radiostations.model.Transmission;
+import com.developer4droid.radiostations.model.Outline;
 import com.developer4droid.radiostations.model.base.BaseResponse;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -29,7 +29,10 @@ public interface ApiClient {
 	Call<BaseResponse<Category>> loadCategories();
 
 	@GET("Browse.ashx" + RENDER_JSON)
-	Call<BaseResponse<Transmission>> loadTransmissions(@Query("c") String categoryName);
+	Call<BaseResponse<Outline>> loadOutlines(@Query("c") String categoryName);
+
+	@GET("Browse.ashx" + RENDER_JSON) // http://opml.radiotime.com/Browse.ashx?id=c57936&render=json
+	Call<BaseResponse<Outline>> loadStations(@Query("id") String id);
 
 	@GET("Tune.ashx" + RENDER_JSON)
 	Call<BaseResponse> loadStation(@Query("id") String id);

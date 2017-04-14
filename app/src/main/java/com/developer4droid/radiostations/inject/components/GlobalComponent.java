@@ -29,5 +29,9 @@ public interface GlobalComponent {
 
 	void inject(StationViewModel model);
 
+	void inject(OutlinesViewModel model);
+	
+	void inject(OutlineViewModel model);
+
 	void inject(BaseViewModel model);
 }

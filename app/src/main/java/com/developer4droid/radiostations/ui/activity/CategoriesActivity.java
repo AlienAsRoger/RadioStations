@@ -81,7 +81,7 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesC
 	}
 
 	@Override
-	public void openCategory(String name) {
-		startActivity(StationsActivity.createIntent(this, name));
+	public void openCategory(String name, String key) {
+		startActivity(GenresActivity.createIntent(this, name, key));
 	}
 }

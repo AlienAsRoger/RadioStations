@@ -1,7 +1,7 @@
 package com.developer4droid.radiostations.network;
 
 import com.developer4droid.radiostations.model.Category;
-import com.developer4droid.radiostations.model.Transmission;
+import com.developer4droid.radiostations.model.Outline;
 
 import java.util.List;
 
@@ -16,5 +16,7 @@ public interface DataLoader {
 
 	void loadCategories(DataReceiver<List<Category>> dataReceiver);
 
-	void loadTransmissions(String categoryName, DataReceiver<List<Transmission>> dataReceiver);
+	void loadOutlines(String categoryName, DataReceiver<List<Outline>> dataReceiver);
+
+	void loadStations(String id, DataReceiver<List<Outline>> dataReceiver);
 }

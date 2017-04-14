@@ -11,45 +11,47 @@ import android.support.v7.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.developer4droid.radiostations.R;
-import com.developer4droid.radiostations.databinding.ActivityStationsBinding;
+import com.developer4droid.radiostations.databinding.ActivityGenreBinding;
+import com.developer4droid.radiostations.model.Outline;
 import com.developer4droid.radiostations.model.Station;
+import com.developer4droid.radiostations.ui.adapter.OutlineAdapter;
 import com.developer4droid.radiostations.ui.adapter.StationsAdapter;
-import com.developer4droid.radiostations.ui.interfaces.StationsContract;
-import com.developer4droid.radiostations.viewmodel.StationsViewModel;
+import com.developer4droid.radiostations.ui.interfaces.GenresContract;
+import com.developer4droid.radiostations.viewmodel.OutlinesViewModel;
 
 import java.util.List;
 
-public class StationsActivity extends AppCompatActivity implements StationsContract.ViewFrame {
+public class GenresActivity extends AppCompatActivity implements GenresContract.ViewFrame {
 
 
-	private static final String NAME = "name";
-	private static final String ID = "id";
+	private static final String NAME = "category name";
+	private static final String KEY = "key";
 
 	@BindView(R.id.recycler_view)
 	RecyclerView recyclerView;
 
-	private ActivityStationsBinding binding;
-	private StationsViewModel viewModel;
+	private ActivityGenreBinding binding;
+	private OutlinesViewModel viewModel;
 	private StationsAdapter adapter;
 	private String categoryName;
-	private String stationId;
+	private String categoryKey;
 
-	public static Intent createIntent(Context context, String name, String id) {
-		Intent intent = new Intent(context, StationsActivity.class);
+	public static Intent createIntent(Context context, String name, String key) {
+		Intent intent = new Intent(context, GenresActivity.class);
 		intent.putExtra(NAME, name);
-		intent.putExtra(ID, id);
+		intent.putExtra(KEY, key);
 		return intent;
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		binding = DataBindingUtil.setContentView(this, R.layout.activity_stations);
+		binding = DataBindingUtil.setContentView(this, R.layout.activity_genre);
 
 		// Use butter knife for fast binding
 		ButterKnife.bind(this);
 		categoryName = getIntent().getStringExtra(NAME);
-		stationId = getIntent().getStringExtra(ID);
+		categoryKey = getIntent().getStringExtra(KEY);
 
 		init();
 		initViews();
@@ -59,7 +61,7 @@ public class StationsActivity extends AppCompatActivity implements StationsContr
 	protected void onResume() {
 		super.onResume();
 
-		binding.setStations(viewModel);
+		binding.setOutline(viewModel);
 
 		viewModel.onResume(this);
 	}
@@ -73,7 +75,7 @@ public class StationsActivity extends AppCompatActivity implements StationsContr
 	 */
 	private void init() {
 		adapter = new StationsAdapter(null);
-		viewModel = new StationsViewModel(categoryName, stationId);
+		viewModel = new OutlinesViewModel(categoryName, categoryKey);
 	}
 
 	/**
@@ -87,7 +89,7 @@ public class StationsActivity extends AppCompatActivity implements StationsContr
 		recyclerView.addItemDecoration(dividerItemDecoration);
 
 		recyclerView.setAdapter(adapter);
-		
+
 		setTitle(categoryName);
 	}
 
@@ -101,8 +103,13 @@ public class StationsActivity extends AppCompatActivity implements StationsContr
 	}
 
 	@Override
-	public void openStation(String name) {
-//		startActivity(StationsActivity.createIntent(this, name));
+	public void updateOutLineAdapter(List<Outline> data) {
+		recyclerView.setAdapter(new OutlineAdapter(data));
+	}
+
+	@Override
+	public void openStation(String name, String guideId) {
+		startActivity(StationsActivity.createIntent(this, name, guideId));
 	}
 
 }

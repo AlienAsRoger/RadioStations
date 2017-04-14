@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	>
+
+	<data>
+
+		<import
+			type="android.view.View"
+			alias="v"
+			/>
+
+		<variable
+			name="outline"
+			type="com.developer4droid.radiostations.viewmodel.OutlinesViewModel"
+			/>
+	</data>
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		>
+
+		<!--RecyclerView-->
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/recycler_view"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			tools:listItem="@layout/main_image_row_view"
+			android:visibility="@{outline.loading? v.GONE : v.VISIBLE}"
+			tools:visibility="gone"
+			/>
+
+		<!--Loading View-->
+		<ProgressBar
+			android:id="@+id/loading_view"
+			style="@style/Base.Widget.AppCompat.ProgressBar"
+			android:indeterminate="true"
+			android:layout_width="48dp"
+			android:layout_height="48dp"
+			android:visibility="@{outline.loading? v.VISIBLE : v.GONE}"
+			tools:visibility="invisible"
+			android:layout_gravity="center"
+			/>
+
+	</FrameLayout>
+</layout>

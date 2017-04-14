@@ -70,6 +70,6 @@ public class CategoriesViewModel extends BaseViewModel implements CategoriesCont
 	@SuppressWarnings("unused")
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onEvent(OpenCategoryEvent event) {
-		viewFrame.openCategory(event.getName());
+		viewFrame.openCategory(event.getName(), event.getKey());
 	}
 }

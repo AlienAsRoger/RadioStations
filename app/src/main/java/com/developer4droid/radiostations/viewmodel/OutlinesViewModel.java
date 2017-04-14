@@ -3,38 +3,38 @@ package com.developer4droid.radiostations.viewmodel;
 import android.databinding.Bindable;
 import com.developer4droid.radiostations.BR;
 import com.developer4droid.radiostations.application.MyApplication;
+import com.developer4droid.radiostations.events.OpenStationEvent;
 import com.developer4droid.radiostations.model.Outline;
 import com.developer4droid.radiostations.network.DataLoader;
 import com.developer4droid.radiostations.network.DataReceiver;
+import com.developer4droid.radiostations.ui.interfaces.GenresContract;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 import java.util.List;
-
-import static com.developer4droid.radiostations.ui.interfaces.StationsContract.ActionListener;
-import static com.developer4droid.radiostations.ui.interfaces.StationsContract.ViewFrame;
 
 /**
  * Created with IntelliJ IDEA.
  * User: roger developer4droid@gmail.com
  * Date: 13.04.2017
- * Time: 13:36
+ * Time: 17:19
  */
 
-public class StationsViewModel extends BaseViewModel implements ActionListener,
+public class OutlinesViewModel extends BaseViewModel  implements GenresContract.ActionListener,
 		DataReceiver<List<Outline>> {
-
 
 	@Inject
 	DataLoader dataLoader;
 
 	private boolean isLoading;
-	private ViewFrame viewFrame;
+	private GenresContract.ViewFrame viewFrame;
 	private String name;
-	private String stationId;
+	private String categoryKey;
 
-	public StationsViewModel(String name, String stationId) {
+	public OutlinesViewModel(String name, String categoryKey) {
 		this.name = name;
-		this.stationId = stationId;
+		this.categoryKey = categoryKey;
 		MyApplication.getInstance().getGlobalComponent().inject(this);
 	}
 
@@ -53,18 +53,33 @@ public class StationsViewModel extends BaseViewModel implements ActionListener,
 	// ------------------------ //
 
 	@Override
-	public void onResume(ViewFrame viewFrame) {
+	public void onResume(GenresContract.ViewFrame viewFrame) {
 		this.viewFrame = viewFrame;
 		setLoading(true);
-		dataLoader.loadStations(stationId, this);
+		dataLoader.loadOutlines(categoryKey, this);
 	}
 
 	@Override
 	public void onDataReceived(List<Outline> data) {
 		setLoading(false);
 		if (!data.isEmpty()) {
-			viewFrame.updateAdapter(data.get(0).getChildren());
+
+			if (data.get(0).getChildren() != null) { // TODO this is workaround to support different outlines under same type.
+				viewFrame.updateAdapter(data.get(0).getChildren());
+			} else {
+				viewFrame.updateOutLineAdapter(data);
+			}
 		}
 	}
 
+
+	// --------- //
+	// Event Bus //
+	// --------- //
+
+	@SuppressWarnings("unused")
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onEvent(OpenStationEvent event) {
+		viewFrame.openStation(event.getName(), event.getGuideId());
+	}
 }
