@@ -12,11 +12,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.developer4droid.radiostations.R;
 import com.developer4droid.radiostations.databinding.ActivityStationsBinding;
+import com.developer4droid.radiostations.model.Outline;
 import com.developer4droid.radiostations.model.Station;
+import com.developer4droid.radiostations.ui.adapter.HeaderItem;
+import com.developer4droid.radiostations.ui.adapter.SectionedAdapter;
+import com.developer4droid.radiostations.ui.adapter.StationItem;
 import com.developer4droid.radiostations.ui.adapter.StationsAdapter;
 import com.developer4droid.radiostations.ui.interfaces.StationsContract;
 import com.developer4droid.radiostations.viewmodel.StationsViewModel;
+import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StationsActivity extends AppCompatActivity implements StationsContract.ViewFrame {
@@ -64,6 +70,13 @@ public class StationsActivity extends AppCompatActivity implements StationsContr
 		viewModel.onResume(this);
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		viewModel.unRegister();
+	}
+
 	// ------------- //
 	// Local methods //
 	// ------------- //
@@ -101,8 +114,27 @@ public class StationsActivity extends AppCompatActivity implements StationsContr
 	}
 
 	@Override
+	public void updateSectionsAdapter(List<Outline> data) {
+		List<AbstractFlexibleItem> itemList = new ArrayList<>();
+		for (Outline item : data) {
+			// create header first
+			HeaderItem headerItem = new HeaderItem(item);
+			itemList.add(headerItem);
+			if (item.getChildren() != null) {
+				for (Station station : item.getChildren()) {
+					StationItem stationItem = new StationItem(station, headerItem);
+					itemList.add(stationItem);
+				}
+			}
+		}
+
+		SectionedAdapter adapter = new SectionedAdapter(itemList);
+		recyclerView.setAdapter(adapter);
+	}
+
+	@Override
 	public void openStation(String name) {
-//		startActivity(StationsActivity.createIntent(this, name));
+		// TODO define action
 	}
 
 }

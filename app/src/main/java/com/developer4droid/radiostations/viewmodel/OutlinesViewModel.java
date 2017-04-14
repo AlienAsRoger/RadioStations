@@ -21,7 +21,7 @@ import java.util.List;
  * Time: 17:19
  */
 
-public class OutlinesViewModel extends BaseViewModel  implements GenresContract.ActionListener,
+public class OutlinesViewModel extends BaseViewModel implements GenresContract.ActionListener,
 		DataReceiver<List<Outline>> {
 
 	@Inject
@@ -55,6 +55,8 @@ public class OutlinesViewModel extends BaseViewModel  implements GenresContract.
 	@Override
 	public void onResume(GenresContract.ViewFrame viewFrame) {
 		this.viewFrame = viewFrame;
+		registerBus();
+
 		setLoading(true);
 		dataLoader.loadOutlines(categoryKey, this);
 	}
@@ -71,7 +73,6 @@ public class OutlinesViewModel extends BaseViewModel  implements GenresContract.
 			}
 		}
 	}
-
 
 	// --------- //
 	// Event Bus //

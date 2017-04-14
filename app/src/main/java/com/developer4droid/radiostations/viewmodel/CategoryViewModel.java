@@ -44,7 +44,7 @@ public class CategoryViewModel extends BaseViewModel {
 	}
 
 	public void openCategory() {
-		eventBus.post(new OpenCategoryEvent(getKey(), getName()));
+		eventBus.post(new OpenCategoryEvent(getName(), getKey()));
 	}
 
 	@Bindable

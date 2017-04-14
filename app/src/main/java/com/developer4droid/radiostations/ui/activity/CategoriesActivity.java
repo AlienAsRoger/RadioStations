@@ -47,6 +47,13 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesC
 		viewModel.onResume(this);
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		viewModel.unRegister();
+	}
+
 	// ------------- //
 	// Local methods //
 	// ------------- //

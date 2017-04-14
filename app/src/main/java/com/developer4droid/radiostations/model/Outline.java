@@ -7,6 +7,7 @@ package com.developer4droid.radiostations.model;
  * Time: 13:41
  */
 
+import android.support.annotation.Nullable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class Outline {
 		return text;
 	}
 
+	@Nullable
 	public List<Station> getChildren() {
 		return children;
 	}

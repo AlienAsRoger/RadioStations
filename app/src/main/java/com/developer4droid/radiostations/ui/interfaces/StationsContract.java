@@ -1,5 +1,6 @@
 package com.developer4droid.radiostations.ui.interfaces;
 
+import com.developer4droid.radiostations.model.Outline;
 import com.developer4droid.radiostations.model.Station;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public interface StationsContract {
 		void updateAdapter(List<Station> itemList);
 
 		void openStation(String name);
+
+		void updateSectionsAdapter(List<Outline> data);
 	}
 
 	interface ActionListener {

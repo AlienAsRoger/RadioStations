@@ -40,6 +40,6 @@ public class Station {
 	}
 
 	public String getImage() {
-		return image;
+		return image == null || image.length() == 0 ? "http://cdn-radiotime-logos.tunein.com/s34804q.png" : image;
 	}
 }

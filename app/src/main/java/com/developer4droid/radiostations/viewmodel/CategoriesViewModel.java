@@ -51,6 +51,8 @@ public class CategoriesViewModel extends BaseViewModel implements CategoriesCont
 	@Override
 	public void onResume(CategoriesContract.ViewFrame viewFrame) {
 		this.viewFrame = viewFrame;
+		registerBus();
+
 		setLoading(true);
 		dataLoader.loadCategories(this);
 	}

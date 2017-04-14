@@ -11,16 +11,16 @@
 			/>
 
 		<variable
-			name="outline"
-			type="com.developer4droid.radiostations.viewmodel.OutlineViewModel"
+			name="station"
+			type="com.developer4droid.radiostations.viewmodel.StationViewModel"
 			/>
 	</data>
 
-	<LinearLayout
+	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
-		android:onClick="@{() -> outline.openItem()}"
+		android:onClick="@{() -> station.openItem()}"
 		android:background="?attr/selectableItemBackground"
 		android:gravity="center_vertical"
 		android:minHeight="56dp"
@@ -38,13 +38,26 @@
 
 		<!--Station Name-->
 		<TextView
+			android:id="@+id/title"
+			android:layout_toEndOf="@+id/image_view"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			style="@style/Name"
-			android:text="@{outline.name}"
+			android:text="@{station.name}"
 			tools:text="Local"
 			/>
 
-	</LinearLayout>
+		<!--Sub text-->
+		<TextView
+			android:layout_toEndOf="@+id/image_view"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/title"
+			style="@style/SubText"
+			android:text="@{station.subText}"
+			tools:text="Local"
+			/>
+
+	</RelativeLayout>
 
 </layout>

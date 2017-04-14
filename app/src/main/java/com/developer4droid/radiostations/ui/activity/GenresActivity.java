@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.developer4droid.radiostations.R;
@@ -66,6 +67,14 @@ public class GenresActivity extends AppCompatActivity implements GenresContract.
 		viewModel.onResume(this);
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		viewModel.unRegister();
+	}
+
+
 	// ------------- //
 	// Local methods //
 	// ------------- //
@@ -75,7 +84,9 @@ public class GenresActivity extends AppCompatActivity implements GenresContract.
 	 */
 	private void init() {
 		adapter = new StationsAdapter(null);
+		Log.d("TEST", "init: genre");
 		viewModel = new OutlinesViewModel(categoryName, categoryKey);
+		Log.d("TEST", "init: genre this " + viewModel);
 	}
 
 	/**

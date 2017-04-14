@@ -2,7 +2,7 @@ package com.developer4droid.radiostations.viewmodel;
 
 import android.databinding.BaseObservable;
 import com.developer4droid.radiostations.application.MyApplication;
-import com.developer4droid.radiostations.events.OpenCategoryEvent;
+import com.developer4droid.radiostations.events.StubEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -20,16 +20,22 @@ public abstract class BaseViewModel extends BaseObservable{
 	@Inject
 	protected EventBus eventBus;
 
-
 	public BaseViewModel() {
 		MyApplication.getInstance().getGlobalComponent().inject(this);
+	}
+
+	public void registerBus() {
 		eventBus.register(this);
+	}
+
+	public void unRegister() {
+		eventBus.unregister(this);
 	}
 
 	/**
 	 * Stub. Required here to not throw exception that no method with @Subscribe annotation
 	 */
 	@Subscribe
-	public void onEvent(OpenCategoryEvent event) {
+	public void onEvent(StubEvent event) {
 	}
 }

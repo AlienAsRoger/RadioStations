@@ -23,7 +23,6 @@ import static com.developer4droid.radiostations.ui.interfaces.StationsContract.V
 public class StationsViewModel extends BaseViewModel implements ActionListener,
 		DataReceiver<List<Outline>> {
 
-
 	@Inject
 	DataLoader dataLoader;
 
@@ -62,9 +61,8 @@ public class StationsViewModel extends BaseViewModel implements ActionListener,
 	@Override
 	public void onDataReceived(List<Outline> data) {
 		setLoading(false);
-		if (!data.isEmpty()) {
-			viewFrame.updateAdapter(data.get(0).getChildren());
-		}
+
+		viewFrame.updateSectionsAdapter(data);
 	}
 
 }
